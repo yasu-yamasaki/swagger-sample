@@ -7,4 +7,9 @@ services:
     environment:
       API_URL: ./swagger/swagger.json
     ports:
-      - '8001:8080'
+      - '8080:8080'
+  back:
+    build:
+      context: back
+    ports:
+      - "8081:8080"
