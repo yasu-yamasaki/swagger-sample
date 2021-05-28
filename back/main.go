@@ -2,11 +2,15 @@ package main
 
 import (
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"net/http"
 )
 
 func main() {
 	e := echo.New()
+
+	e.Use(middleware.CORS())
+
 	e.GET("/v1/pets", show)
 	e.PUT("/v1/pets", put)
 

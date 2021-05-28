@@ -12,4 +12,9 @@ services:
     build:
       context: back
     ports:
-      - "8081:8080"
+      - "8081:8081"
+  front:
+    build:
+      context: front
+    ports:
+      - "80:8080"

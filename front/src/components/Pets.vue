@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <ul>
-      <li v-for="item in items" key="item.id">
+      <li v-for="item in items" :key="item.id">
         <dl>
           <dt>id</dt>
           <dd>{{ item.id }}</dd>
@@ -13,11 +13,11 @@
     <div>
       <dl>
         <dt>id</dt>
-        <dd><input v-model="input.id"></dd>
+        <dd><input v-model="input.id"/></dd>
         <dt>name</dt>
-        <dd><input v-model="input.name"></dd>
+        <dd><input v-model="input.name"/></dd>
       </dl>
-      <button>追加</button>
+      <button @click="add">追加</button>
     </div>
   </div>
 </template>
@@ -33,24 +33,25 @@ export default {
         id: "",
         name: "",
       },
-      items: []
-    }
+      items: [],
+    };
+  },
+  async mounted() {
+    await this.update()
   },
   methods: {
     async add() {
-      await put(
-          "http://localhost:8081/v1/pets",
-          {
-            id: this.input.id,
-            name: this.input.name,
-          }
-      )
+      await put("http://localhost:8081/v1/pets", {
+        id: this.input.id,
+        name: this.input.name,
+      });
+      await this.update()
     },
     async update() {
-      const res = await get("http://localhost:8081/v1/pets")
-      this.items = res.data
-    }
-  }
+      const res = await get("http://localhost:8081/v1/pets");
+      this.items = res.data;
+    },
+  },
 };
 </script>
 
